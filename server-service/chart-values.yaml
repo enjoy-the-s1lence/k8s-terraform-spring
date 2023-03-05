@@ -1,0 +1,9 @@
+replicaCount: 1
+
+service:
+  type: ClusterIP
+  port: 8181
+  targetport: 8181
+
+image:
+  name: server-service:latest

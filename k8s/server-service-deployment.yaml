@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server-service
+  labels:
+    app: server-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: server-service
+  template:
+    metadata:
+      labels:
+        app: server-service
+    spec:
+      containers:
+        - name: server-service
+          image: server-service:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8181
+          env:
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: aws-secret
+                  key: access-key
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: aws-secret
+                  key: secret-access-key
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: server-service
+spec:
+  type: ClusterIP
+  selector:
+    app: server-service
+  ports:
+    - port: 8181
+      targetPort: 8181

@@ -1,0 +1,12 @@
+replicaCount: 1
+
+service:
+  type: ClusterIP
+  port: 8080
+  targetport: 8080
+
+container:
+  name: local-container
+
+image:
+  name: local-image

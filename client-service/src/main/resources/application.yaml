@@ -1,0 +1,29 @@
+server:
+  port: 8282
+
+spring:
+  application:
+    name: client-service
+  cloud:
+    kubernetes:
+      discovery:
+        enabled: true
+        all-namespaces: false
+
+cloud:
+  aws:
+    region: eu-west-1
+
+logging:
+  level:
+    com.spt.k8s.client: DEBUG
+    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
+
+ping-pong:
+  queue:
+    name: PingPongMessages-Q
+
+k8sApp:
+  services:
+    server:
+      name: server-service
